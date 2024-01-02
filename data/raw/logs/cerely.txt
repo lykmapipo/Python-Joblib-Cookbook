@@ -1,0 +1,4 @@
+[2024-01-02 08:30:15] INFO: Task 'process_data' started processing
+[2024-01-02 08:35:40] DEBUG: Task 'process_data' updated progress - 50%
+[2024-01-02 08:40:22] ERROR: Task 'process_data' failed - ConnectionError: Unable to connect to the database
+[2024-01-02 08:45:05] WARNING: Task 'send_email' retrying in 10 seconds due to network issues

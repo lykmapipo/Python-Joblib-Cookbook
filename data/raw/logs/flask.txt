@@ -1,0 +1,4 @@
+[2024-01-02 09:45:12] INFO: Flask app initialized
+[2024-01-02 09:50:30] DEBUG: Received GET request at /api/v1/data
+[2024-01-02 09:55:18] ERROR: Internal Server Error at /api/v1/data - ValueError: Invalid input data
+[2024-01-02 10:00:45] WARNING: Deprecated function 'old_function()' called at /app/main.py:57

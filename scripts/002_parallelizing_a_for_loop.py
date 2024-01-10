@@ -1,4 +1,4 @@
-import joblib
+from joblib import Parallel, delayed
 
 
 def process_item(item):
@@ -7,6 +7,6 @@ def process_item(item):
 
 items = list(range(10))
 
-results = joblib.Parallel(n_jobs=-1)(joblib.delayed(process_item)(item) for item in items)
+results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
 
 print(results)

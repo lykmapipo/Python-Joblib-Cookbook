@@ -27,14 +27,14 @@ pip install joblib
 **Objective:** Understand the fundamental usage of Joblib for parallelizing functions.
 
 ```python
-import joblib
+from joblib import Parallel, delayed
 
 
 def square(x):
     return x**2
 
 
-results = joblib.Parallel(n_jobs=-1)(joblib.delayed(square)(i) for i in range(10))
+results = Parallel(n_jobs=-1)(delayed(square)(i) for i in range(10))
 
 print(results)
 
@@ -48,7 +48,7 @@ print(results)
 **Objective:** Parallelize a for loop using Joblib.
 
 ```python
-import joblib
+from joblib import Parallel, delayed
 
 
 def process_item(item):
@@ -57,9 +57,10 @@ def process_item(item):
 
 items = list(range(10))
 
-results = joblib.Parallel(n_jobs=-1)(joblib.delayed(process_item)(item) for item in items)
+results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
 
 print(results)
+
 ```
 
 **Tips:** Adjust the number of items in the list and observe performance changes when parallelizing.
@@ -72,9 +73,9 @@ print(results)
 ```python
 import time
 
-import joblib
+from joblib import Memory, Parallel, delayed
 
-mem = joblib.Memory("./tmp/cache", verbose=0)
+mem = Memory("./tmp/cache", verbose=0)
 
 
 @mem.cache
@@ -85,7 +86,7 @@ def process_item(item):
 items = list(range(100))
 
 start = time.time()
-results = joblib.Parallel(n_jobs=-1)(joblib.delayed(process_item)(item) for item in items)
+results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
 stop = time.time()
 
 print(results)
@@ -93,7 +94,7 @@ print("Elapsed time for the entire processing: {:.2f} s".format(stop - start))
 
 ```
 
-**Tips:** Adjust the number of items in the list and observe performance changes when caching.
+**Tips:** Adjust the number of items in the list, re-run the codes and observe performance changes when caching.
 
 
 ## Memory Mapping Large Arrays
@@ -122,15 +123,15 @@ print(loaded_data)
 **Objective:** Customize Joblib's parallel backend for specific requirements.
 
 ```python
-import joblib
+from joblib import Parallel, delayed, parallel_config
 
 
 def square(x):
     return x**2
 
 
-with joblib.parallel_config(backend="threading", n_jobs=2):
-    results = joblib.Parallel()(joblib.delayed(square)(i) for i in range(10))
+with parallel_config(backend="threading", n_jobs=2):
+    results = Parallel()(delayed(square)(i) for i in range(10))
 
 print(results)
 

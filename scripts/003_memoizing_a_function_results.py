@@ -1,8 +1,8 @@
 import time
 
-import joblib
+from joblib import Memory, Parallel, delayed
 
-mem = joblib.Memory("./tmp/cache", verbose=0)
+mem = Memory("./tmp/cache", verbose=0)
 
 
 @mem.cache
@@ -13,7 +13,7 @@ def process_item(item):
 items = list(range(100))
 
 start = time.time()
-results = joblib.Parallel(n_jobs=-1)(joblib.delayed(process_item)(item) for item in items)
+results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
 stop = time.time()
 
 print(results)

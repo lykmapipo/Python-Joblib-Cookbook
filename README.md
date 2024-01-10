@@ -214,6 +214,37 @@ print(logs)
 **Tips:** Experiment with different parallel backends and data formats.
 
 
+## Distributed Computing with Dask
+
+**Objective:** Utilize `Dask` as a Joblib backend, to enable distributed computing capabilities.
+
+```sh
+pip install dask
+```
+
+```python
+from dask.distributed import Client, LocalCluster
+from joblib import Parallel, delayed, parallel_config
+
+
+def square(x):
+    return x**2
+
+
+# See: https://docs.dask.org/en/stable/deploying.html#distributed-computing
+if __name__ == "__main__":
+    with LocalCluster() as cluster:
+        with Client(cluster) as client:
+            with parallel_config(backend="dask"):
+                results = Parallel(verbose=10)(delayed(square)(i) for i in range(10))
+
+    print(results)
+
+```
+
+**Tips:** Experiment with many ways to [deploy and run Dask clusters](https://docs.dask.org/en/stable/deploying.html#distributed-computing) and observe performance gains.
+
+
 ## What's Next
 
 1. **Explore Advanced Joblib Features:** Delve deeper into Joblib's advanced features such as caching, lazy evaluation, and distributed computing for more complex tasks.

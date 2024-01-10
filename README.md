@@ -223,3 +223,20 @@ print(logs)
 3. **Discover Related Libraries:** Explore other Python libraries for parallel computing and optimization, such as Dask or Multiprocessing, to broaden your toolkit.
 
 4. **Stay Updated:** Keep an eye on Joblib's updates and enhancements in future releases to leverage the latest functionalities and optimizations.
+
+
+## Gotchas
+
+1. **Choose the Right Backend:** Select the appropriate Joblib backend based on your task and available resources. For CPU-bound tasks, `loky` or `multiprocessing` might be suitable. For I/O-bound tasks, `threading` or specific distributed computing backends like `dask` might be better.
+
+2. **Optimal Number of Workers:** Experiment with the number of workers (`n_jobs`) to find the optimal configuration. Too many workers can lead to resource contention, while too few might underutilize resources.
+
+3. **Data Transfer Overhead:** Minimize data transfer overhead between processes/threads. Large data transfers between parallel workers can become a bottleneck. Avoid unnecessary data sharing or copying if possible.
+
+4. **Memory Consideration:** Be mindful of memory usage, especially when processing large datasets in parallel. Parallelism can increase memory consumption, potentially leading to resource contention or out-of-memory issues.
+
+5. **Cleanup Resources:** Ensure proper cleanup of resources (e.g., closing files, releasing memory) after the parallel tasks complete to avoid resource leaks.
+
+6. **Proper Error Handling:** Implement proper error handling mechanisms, especially when dealing with parallel tasks, to manage exceptions and prevent deadlocks or crashes.
+
+7. **Benchmark and Profile:** Measure the performance of your parallelized code using benchmarking tools (`timeit`, `time`, etc.) to identify bottlenecks and areas for improvement.

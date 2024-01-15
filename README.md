@@ -9,6 +9,8 @@ A step-by-step guide to master various aspects of [Joblib](https://github.com/jo
 - [joblib 1.3+](https://github.com/joblib/joblib)
 - [numpy 1.24+](https://github.com/numpy/numpy)
 - [scikit-learn 1.3+](https://github.com/scikit-learn/scikit-learn)
+- [dask 2023.5+](https://github.com/dask/dask)
+- [ray 2.9+](https://github.com/ray-project/ray)
 
 
 ## Installing Joblib
@@ -220,7 +222,7 @@ print(logs)
 **Objective:** Utilize `Dask` as a Joblib backend, to enable distributed computing capabilities.
 
 ```sh
-pip install dask
+pip install dask distributed
 ```
 
 ```python
@@ -246,13 +248,45 @@ if __name__ == "__main__":
 **Tips:** Experiment with many ways to [deploy and run Dask clusters](https://docs.dask.org/en/stable/deploying.html#distributed-computing) and observe performance gains.
 
 
+## Distributed Computing with Ray
+
+**Objective:** Utilize `Ray` as a Joblib backend, to enable distributed computing capabilities.
+
+```sh
+pip install ray
+```
+
+```python
+from joblib import Parallel, delayed, parallel_config
+from ray.util.joblib import register_ray
+
+
+def square(x):
+    return x**2
+
+
+# Register Ray Backend to be called with parallel_config(backend="ray")
+register_ray()
+
+# See: https://docs.ray.io/en/latest/ray-core/walkthrough.html
+if __name__ == "__main__":
+    with parallel_config(backend="ray"):
+        results = Parallel(verbose=10)(delayed(square)(i) for i in range(10))
+
+    print(results)
+
+```
+
+**Tips:** Experiment with many ways to [deploy and run Ray clusters](https://docs.ray.io/en/latest/cluster/getting-started.html) and observe performance gains.
+
+
 ## What's Next
 
 1. **Explore Advanced Joblib Features:** Delve deeper into Joblib's advanced features such as caching, lazy evaluation, and distributed computing for more complex tasks.
 
 2. **Apply Joblib to Real-world Projects:** Implement Joblib in your own projects involving data processing, machine learning, or any CPU-intensive tasks to experience its benefits firsthand.
 
-3. **Discover Related Libraries:** Explore other Python libraries for parallel computing and optimization, such as Dask or Multiprocessing, to broaden your toolkit.
+3. **Discover Related Libraries:** Explore other Python libraries for parallel computing and optimization, such as Dask, Ray or Multiprocessing, to broaden your toolkit.
 
 4. **Stay Updated:** Keep an eye on Joblib's updates and enhancements in future releases to leverage the latest functionalities and optimizations.
 

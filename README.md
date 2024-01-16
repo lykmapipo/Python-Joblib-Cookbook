@@ -64,6 +64,37 @@ print(results)
 
 ---
 
+## Basic Configuration
+**Objective:** Understand how to configure Joblib (i.e to set `backend`, `n_jobs`, `verbose` etc).
+
+```python
+from joblib import Parallel, delayed, parallel_config
+
+
+def square(x):
+    return x**2
+
+
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    results = Parallel()(delayed(square)(i) for i in range(10))
+
+print(results)
+
+```
+
+**Tips:**
+
+- It is particularly useful (recommended) to use `parallel_config` when configuring joblib, especially when using libraries (e.g [scikit-learn](https://github.com/scikit-learn/scikit-learn)) that uses joblib internally.
+
+- `backend` specifies the parallelization backend to use. By default, available backends are `loky`, `threading` and `multiprocessing`. Custom backends i.e `Dask`, `Ray` etc., need to be registered before usage.
+
+- `n_jobs` specifies the maximum number of parallel jobs. If `-1` all CPU cores are used.
+
+- `verbose` specifies level of progress messages to be printed, when executiong the jobs.
+
+
+---
+
 ## Parallelizing a For Loop
 
 **Objective:** Parallelize a for loop using Joblib.

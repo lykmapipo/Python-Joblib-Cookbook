@@ -34,6 +34,19 @@ pip show joblib
 
 - Ensure [pip](https://pip.pypa.io/en/stable/installation/) is installed before before running the installation command.
 
+- If you want use [docker](https://www.docker.com/) run:
+
+```sh
+docker build -t python-joblib-cookbook:3.8-slim-bookworm .
+
+docker run -it --rm \
+    -v $(pwd)/data:/python-joblib-cookbook/data \
+    -v $(pwd)/tmp:/python-joblib-cookbook/tmp \
+    -v $(pwd)/scripts:/python-joblib-cookbook/scripts\
+    python-joblib-cookbook:3.8-slim-bookworm
+
+```
+
 
 ---
 

@@ -100,7 +100,7 @@ print(results)
 **Objective:** Parallelize a for loop using Joblib.
 
 ```python
-from joblib import Parallel, delayed
+from joblib import Parallel, delayed, parallel_config
 
 
 def process_item(item):
@@ -109,7 +109,8 @@ def process_item(item):
 
 items = list(range(10))
 
-results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    results = Parallel()(delayed(process_item)(item) for item in items)
 
 print(results)
 
@@ -129,7 +130,7 @@ print(results)
 ```python
 import time
 
-from joblib import Memory, Parallel, delayed
+from joblib import Memory, Parallel, delayed, parallel_config
 
 mem = Memory("./tmp/cache", verbose=0)
 
@@ -142,7 +143,8 @@ def process_item(item):
 items = list(range(100))
 
 start = time.time()
-results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    results = Parallel()(delayed(process_item)(item) for item in items)
 stop = time.time()
 
 print(results)
@@ -194,7 +196,7 @@ def square(x):
     return x**2
 
 
-with parallel_config(backend="threading", n_jobs=2):
+with parallel_config(backend="threading", n_jobs=-1, verbose=50):
     results = Parallel()(delayed(square)(i) for i in range(10))
 
 print(results)
@@ -222,13 +224,13 @@ from sklearn.model_selection import train_test_split
 X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-clf = RandomForestClassifier(n_estimators=100, random_state=42)
 
-with joblib.parallel_config(backend="loky", n_jobs=-1):
+with joblib.parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    clf = RandomForestClassifier(n_estimators=100, random_state=42, verbose=50)
     clf.fit(X_train, y_train)
 
-y_pred = clf.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
+    y_pred = clf.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
 
 print(f"Accuracy: {accuracy}")
 
@@ -266,8 +268,8 @@ def parse_log_line(log_line):
 def process_log_file(log_file=None):
     with open(log_file, "r") as file:
         log_lines = file.readlines()
-        with parallel_config():
-            logs = Parallel(n_jobs=-1)(delayed(parse_log_line)(log_line) for log_line in log_lines)
+        with parallel_config(backend="threading", n_jobs=-1, verbose=50):
+            logs = Parallel()(delayed(parse_log_line)(log_line) for log_line in log_lines)
         return logs
 
 
@@ -277,8 +279,8 @@ def glob_log_files(logs_dir=None):
 
 
 log_files = glob_log_files(logs_dir="./data/raw/logs")
-with parallel_config():
-    logs = Parallel(n_jobs=-1)(delayed(process_log_file)(log_file) for log_file in log_files)
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    logs = Parallel()(delayed(process_log_file)(log_file) for log_file in log_files)
 
 print(logs)
 
@@ -312,8 +314,8 @@ def square(x):
 if __name__ == "__main__":
     with LocalCluster() as cluster:
         with Client(cluster) as client:
-            with parallel_config(backend="dask"):
-                results = Parallel(verbose=10)(delayed(square)(i) for i in range(10))
+            with parallel_config(backend="dask", n_jobs=-1, verbose=50):
+                results = Parallel()(delayed(square)(i) for i in range(10))
 
     print(results)
 
@@ -348,8 +350,8 @@ register_ray()
 
 # See: https://docs.ray.io/en/latest/ray-core/walkthrough.html
 if __name__ == "__main__":
-    with parallel_config(backend="ray"):
-        results = Parallel(verbose=10)(delayed(square)(i) for i in range(10))
+    with parallel_config(backend="ray", n_jobs=-1, verbose=50):
+        results = Parallel()(delayed(square)(i) for i in range(10))
 
     print(results)
 

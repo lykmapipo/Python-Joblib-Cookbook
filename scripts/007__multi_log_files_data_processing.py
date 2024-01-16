@@ -18,8 +18,8 @@ def parse_log_line(log_line):
 def process_log_file(log_file=None):
     with open(log_file, "r") as file:
         log_lines = file.readlines()
-        with parallel_config():
-            logs = Parallel(n_jobs=-1)(delayed(parse_log_line)(log_line) for log_line in log_lines)
+        with parallel_config(backend="threading", n_jobs=-1, verbose=50):
+            logs = Parallel()(delayed(parse_log_line)(log_line) for log_line in log_lines)
         return logs
 
 
@@ -29,7 +29,7 @@ def glob_log_files(logs_dir=None):
 
 
 log_files = glob_log_files(logs_dir="./data/raw/logs")
-with parallel_config():
-    logs = Parallel(n_jobs=-1)(delayed(process_log_file)(log_file) for log_file in log_files)
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    logs = Parallel()(delayed(process_log_file)(log_file) for log_file in log_files)
 
 print(logs)

@@ -1,6 +1,6 @@
 import time
 
-from joblib import Memory, Parallel, delayed
+from joblib import Memory, Parallel, delayed, parallel_config
 
 mem = Memory("./tmp/cache", verbose=0)
 
@@ -13,7 +13,8 @@ def process_item(item):
 items = list(range(100))
 
 start = time.time()
-results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    results = Parallel()(delayed(process_item)(item) for item in items)
 stop = time.time()
 
 print(results)

@@ -1,4 +1,4 @@
-from joblib import Parallel, delayed
+from joblib import Parallel, delayed, parallel_config
 
 
 def process_item(item):
@@ -7,6 +7,7 @@ def process_item(item):
 
 items = list(range(10))
 
-results = Parallel(n_jobs=-1)(delayed(process_item)(item) for item in items)
+with parallel_config(backend="loky", n_jobs=-1, verbose=50):
+    results = Parallel()(delayed(process_item)(item) for item in items)
 
 print(results)

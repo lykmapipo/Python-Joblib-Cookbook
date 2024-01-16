@@ -10,7 +10,7 @@ def square(x):
 if __name__ == "__main__":
     with LocalCluster() as cluster:
         with Client(cluster) as client:
-            with parallel_config(backend="dask"):
-                results = Parallel(verbose=10)(delayed(square)(i) for i in range(10))
+            with parallel_config(backend="dask", n_jobs=-1, verbose=50):
+                results = Parallel()(delayed(square)(i) for i in range(10))
 
     print(results)

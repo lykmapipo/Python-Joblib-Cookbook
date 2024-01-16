@@ -6,6 +6,7 @@ A step-by-step guide to master various aspects of [Joblib](https://github.com/jo
 ## Requirements
 
 - [Python 3.8+](https://www.python.org/)
+- [pip 23.3+](https://github.com/pypa/pip)
 - [joblib 1.3+](https://github.com/joblib/joblib)
 - [numpy 1.24+](https://github.com/numpy/numpy)
 - [scikit-learn 1.3+](https://github.com/scikit-learn/scikit-learn)
@@ -17,15 +18,21 @@ A step-by-step guide to master various aspects of [Joblib](https://github.com/jo
 
 ## Installing Joblib
 
-**Objective:** Learn how to install Joblib using `pip`.
+**Objective:** Learn how to install and verify Joblib using `pip`.
 
 ```sh
 pip install joblib
 ```
 
+```sh
+pip show joblib
+```
+
 **Tips:**
 
-- Ensure the appropriate Python environment is activated before running the installation command.
+- Ensure the appropriate [Python virtual environment](https://docs.python.org/3/library/venv.html) is activated before running the installation command.
+
+- Ensure [pip](https://pip.pypa.io/en/stable/installation/) is installed before before running the installation command.
 
 
 ---

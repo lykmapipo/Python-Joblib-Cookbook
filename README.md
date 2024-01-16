@@ -13,9 +13,11 @@ A step-by-step guide to master various aspects of [Joblib](https://github.com/jo
 - [ray 2.9+](https://github.com/ray-project/ray)
 
 
+---
+
 ## Installing Joblib
 
-**Objective:** Learn how to install Joblib using pip.
+**Objective:** Learn how to install Joblib using `pip`.
 
 ```sh
 pip install joblib
@@ -23,6 +25,8 @@ pip install joblib
 
 **Tips:** Ensure the appropriate Python environment is activated before running the installation command.
 
+
+---
 
 ## Basic Usage
 
@@ -36,14 +40,18 @@ def square(x):
     return x**2
 
 
-results = Parallel(n_jobs=-1)(delayed(square)(i) for i in range(10))
+results = Parallel(n_jobs=-1, verbose=50)(delayed(square)(i) for i in range(10))
 
 print(results)
 
 ```
 
-**Tips:** Experiment with different functions to parallelize and observe the behavior with varying inputs.
+**Tips:**
+- Adjust the `n_jobs` to `0, 1, etc`, to control the number of parallel jobs (`-1` uses all available `cpu cores`)
+- Adjust the `vebosity` to `0, 1, 2, 3, 10, 50 etc.`, to control level of progress messages that are printed.
 
+
+---
 
 ## Parallelizing a For Loop
 
@@ -67,6 +75,8 @@ print(results)
 
 **Tips:** Adjust the number of items in the list and observe performance changes when parallelizing.
 
+
+---
 
 ### Memoizing a Function Results
 
@@ -99,6 +109,8 @@ print("Elapsed time for the entire processing: {:.2f} s".format(stop - start))
 **Tips:** Adjust the number of items in the list, re-run the codes and observe performance changes when caching.
 
 
+---
+
 ## Memory Mapping Large Arrays
 
 **Objective:** Use memory mapping with Joblib for handling large arrays efficiently.
@@ -119,6 +131,8 @@ print(loaded_data)
 
 **Tips:** Experiment with different compression levels and pickle protocols for optimization.
 
+
+---
 
 ## Customizing Joblib Parallel Backend
 
@@ -141,6 +155,8 @@ print(results)
 
 **Tips:** Explore different parallel backends and adjust the number of jobs for performance comparison.
 
+
+---
 
 ## Parallelizing Machine Learning Training
 
@@ -170,6 +186,8 @@ print(f"Accuracy: {accuracy}")
 
 **Tips:** Experiment with different machine learning models and datasets to observe performance gains.
 
+
+---
 
 ## Multi log-files Data Processing
 
@@ -217,6 +235,8 @@ print(logs)
 **Tips:** Experiment with different parallel backends and data formats.
 
 
+---
+
 ## Distributed Computing with Dask
 
 **Objective:** Utilize `Dask` as a Joblib backend, to enable distributed computing capabilities.
@@ -247,6 +267,8 @@ if __name__ == "__main__":
 
 **Tips:** Experiment with many ways to [deploy and run Dask clusters](https://docs.dask.org/en/stable/deploying.html#distributed-computing) and observe performance gains.
 
+
+---
 
 ## Distributed Computing with Ray
 
@@ -279,6 +301,8 @@ if __name__ == "__main__":
 
 **Tips:** Experiment with many ways to [deploy and run Ray clusters](https://docs.ray.io/en/latest/cluster/getting-started.html) and observe performance gains.
 
+
+---
 
 ## What's Next
 

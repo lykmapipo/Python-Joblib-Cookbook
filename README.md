@@ -23,7 +23,9 @@ A step-by-step guide to master various aspects of [Joblib](https://github.com/jo
 pip install joblib
 ```
 
-**Tips:** Ensure the appropriate Python environment is activated before running the installation command.
+**Tips:**
+
+- Ensure the appropriate Python environment is activated before running the installation command.
 
 
 ---
@@ -47,7 +49,9 @@ print(results)
 ```
 
 **Tips:**
+
 - Adjust the `n_jobs` to `0, 1, etc`, to control the number of parallel jobs (`-1` uses all available `cpu cores`)
+
 - Adjust the `vebosity` to `0, 1, 2, 3, 10, 50 etc.`, to control level of progress messages that are printed.
 
 
@@ -73,12 +77,14 @@ print(results)
 
 ```
 
-**Tips:** Adjust the number of items in the list and observe performance changes when parallelizing.
+**Tips:**
+
+- Adjust the number of items in the list and observe performance changes when parallelizing.
 
 
 ---
 
-### Memoizing a Function Results
+## Memoizing a Function Results
 
 **Objective:** Use Joblib's `Memory` to cache function results and speed up repeated computations.
 
@@ -106,7 +112,9 @@ print("Elapsed time for the entire processing: {:.2f} s".format(stop - start))
 
 ```
 
-**Tips:** Adjust the number of items in the list, re-run the codes and observe performance changes when caching.
+**Tips:**
+
+- Adjust the number of items in the list, re-run the codes and observe performance changes when caching.
 
 
 ---
@@ -129,7 +137,9 @@ print(loaded_data)
 
 ```
 
-**Tips:** Experiment with different compression levels and pickle protocols for optimization.
+**Tips:**
+
+- Experiment with different compression levels and pickle protocols for optimization.
 
 
 ---
@@ -153,7 +163,9 @@ print(results)
 
 ```
 
-**Tips:** Explore different parallel backends and adjust the number of jobs for performance comparison.
+**Tips:**
+
+- Explore different parallel backends and adjust the number of jobs for performance comparison.
 
 
 ---
@@ -184,7 +196,9 @@ print(f"Accuracy: {accuracy}")
 
 ```
 
-**Tips:** Experiment with different machine learning models and datasets to observe performance gains.
+**Tips:**
+
+- Experiment with different machine learning models and datasets to observe performance gains.
 
 
 ---
@@ -232,7 +246,9 @@ print(logs)
 
 ```
 
-**Tips:** Experiment with different parallel backends and data formats.
+**Tips:**
+
+- Experiment with different parallel backends and data formats.
 
 
 ---
@@ -265,7 +281,9 @@ if __name__ == "__main__":
 
 ```
 
-**Tips:** Experiment with many ways to [deploy and run Dask clusters](https://docs.dask.org/en/stable/deploying.html#distributed-computing) and observe performance gains.
+**Tips:**
+
+- Experiment with many ways to [deploy and run Dask clusters](https://docs.dask.org/en/stable/deploying.html#distributed-computing) and observe performance gains.
 
 
 ---
@@ -299,7 +317,9 @@ if __name__ == "__main__":
 
 ```
 
-**Tips:** Experiment with many ways to [deploy and run Ray clusters](https://docs.ray.io/en/latest/cluster/getting-started.html) and observe performance gains.
+**Tips:**
+
+- Experiment with many ways to [deploy and run Ray clusters](https://docs.ray.io/en/latest/cluster/getting-started.html) and observe performance gains.
 
 
 ---

@@ -15,8 +15,10 @@ COPY requirements.txt ./
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install -r requirements.txt
 
-VOLUME ["/python-joblib-cookbook/data"]
-VOLUME ["/python-joblib-cookbook/scripts"]
-VOLUME ["/python-joblib-cookbook/tmp"]
+VOLUME [ \
+    "/python-joblib-cookbook/data", \
+    "/python-joblib-cookbook/scripts", \
+    "/python-joblib-cookbook/tmp" \
+]
 
 CMD ["python"]

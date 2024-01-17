@@ -6,6 +6,7 @@ LABEL maintainer="Lally Elias <lallyelias87@gmail.com>" \
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=42 \
     RANDOM_SEED=42
 

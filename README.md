@@ -141,11 +141,9 @@ print(results)
 **Objective:** Use Joblib's `Memory` to cache function results and speed up repeated computations.
 
 ```python
-import time
-
 from joblib import Memory, Parallel, delayed, parallel_config
 
-mem = Memory("./tmp/cache", verbose=0)
+mem = Memory("./tmp/cache", verbose=10)
 
 
 @mem.cache
@@ -155,19 +153,19 @@ def process_item(item):
 
 items = list(range(100))
 
-start = time.time()
 with parallel_config(backend="loky", n_jobs=-1, verbose=50):
     results = Parallel()(delayed(process_item)(item) for item in items)
-stop = time.time()
 
 print(results)
-print("Elapsed time for the entire processing: {:.2f} s".format(stop - start))
+
 
 ```
 
 **Tips:**
 
 - Adjust the number of items in the list, re-run the codes and observe performance changes when caching.
+
+- Adjust `Memory` verbose level to `0, 2, 10, 50 etc.` to see if cached results are used.
 
 
 ---
